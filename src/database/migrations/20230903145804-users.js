@@ -8,7 +8,8 @@ module.exports = {
         type:Sequelize.INTEGER,
         autoIncrement:true,
         primaryKey:true,
-        allowNull:false
+        allowNull:false,
+        unique:true
       },
       fullname:Sequelize.STRING,
       email:Sequelize.STRING,
