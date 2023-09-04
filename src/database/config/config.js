@@ -3,7 +3,7 @@ require('dotenv').config();
 const development = {
   "username": process.env.DBUSER,
   "password": process.env.DBPASS,
-  "database": "mbo-db",
+  "database": process.env.DBNAME,
   "host": process.env.DBHOST,
   "port":3306,
   "dialect": "mysql"
@@ -14,8 +14,8 @@ const production = {
   "password": process.env.DBPASS,
   "database": process.env.DBNAME,
   "host": process.env.DBHOST,
-  "port": process.env.DBPORT,
-  "dialect": process.env.DBDIALECT
+  "port":3306,
+  "dialect": "mysql"
 }
 
 module.exports = {development,production}

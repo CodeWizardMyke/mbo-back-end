@@ -1,9 +1,14 @@
+const {Users} = require('../database/models');
 
 const api_users = {
     get: async( req, res) => {
         try {
+            const response = await Users.findAll()
+
             console.log({msg:'connection [GET]Users successful'});
-            return res.status(200).json({msg:'connection [GET]Users successful'});
+            console.log(response)
+
+            return res.status(200).json(response);
         } catch (error) {
             console.log(error);
             return res.json({msg:"Original Error [GET]Users status-500 client-server error!"})
@@ -11,8 +16,9 @@ const api_users = {
     },
     post: async( req, res) => {
         try {
+            const response = await Users.create(req.body)
             console.log({msg:'connection [POST]Users successful'});
-            return res.status(201).json({msg:'connection [POST]Users successful'});
+            return res.status(201).json({response});
         } catch (error) {
             console.log(error);
             return res.json({msg:"Original Error [POST]Users status-500 client-server error!"})
