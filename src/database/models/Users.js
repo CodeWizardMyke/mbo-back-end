@@ -5,11 +5,16 @@ module.exports = (sequelize, DataTypes) => {
             type:DataTypes.INTEGER,
             autoIncrement:true,
             primaryKey:true,
-            allowNull:false
+            allowNull:false,
+            unique:true
           },
           fullname:DataTypes.STRING,
           email:DataTypes.STRING,
           password:DataTypes.STRING,
+    },
+    {
+        tableName:'users',
+        timestamps:true
     })
 
     return Users;

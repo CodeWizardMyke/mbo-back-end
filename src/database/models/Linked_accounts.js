@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Settings =  sequelize.define('Settings',{
+    const Linked_accounts =  sequelize.define('Linked_accounts',{
         id:{
             type:DataTypes.INTEGER,
             primaryKey:true,
@@ -7,13 +7,15 @@ module.exports = (sequelize, DataTypes) => {
             unique:true,
             allowNull:false,
           },
-          notification_preference:DataTypes.INTEGER,
-          privacy_settings:DataTypes.INTEGER,
+          user_id:DataTypes.INTEGER,
+          account_name:DataTypes.STRING,
+          account_number:DataTypes.STRING,
+          bank_name:DataTypes.STRING,
     },
     {
         timestamps:true,
-        tableName:'settings'
+        tableName:'linked_accounts'
     })
 
-    return Settings;
+    return Linked_accounts;
 }
