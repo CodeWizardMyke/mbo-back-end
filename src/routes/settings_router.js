@@ -9,4 +9,7 @@ router.post('/', api_settings.post);
 router.put('/', api_settings.put);
 router.delete('/', api_settings.delete);
 
+router.get('/id', api_settings.id_settings);
+router.get('/user', api_settings.user_settings);
+
 module.exports = router;

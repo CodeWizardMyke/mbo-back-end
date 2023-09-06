@@ -9,4 +9,8 @@ router.post('/', linked_accounts.post);
 router.put('/', linked_accounts.put);
 router.delete('/', linked_accounts.delete);
 
+//advance search
+router.get('/id', linked_accounts.id_linked_accounts);
+router.get('/user', linked_accounts.user_linked_accounts);
+
 module.exports = router;

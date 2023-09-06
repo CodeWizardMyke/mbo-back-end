@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Transactions.associate = (models) => {
         Transactions.belongsTo(models.Users, {foreignKey:'user_id', as : 'user'});
+        Transactions.belongsTo(models.Category, {foreignKey:'category_id', as : 'category'});
     }
 
     return Transactions;

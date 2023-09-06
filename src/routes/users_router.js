@@ -17,5 +17,6 @@ router.get('/budgets', api_users.user_budgets);
 router.get('/linked.accounts', api_users.user_linked_accounts);
 router.get('/settings', api_users.user_settings);
 router.get('/transactions', api_users.user_transactions);
+router.get('/support', api_users.user_support);
 
 module.exports = router;

@@ -138,7 +138,7 @@ const api_users = {
         try {
             let response = await Users.findOne({
                 where:{id: Number(req.body.id) },
-                include:'support'
+                include:'support_tickets'
             });
 
             return res.status(200).json(response);

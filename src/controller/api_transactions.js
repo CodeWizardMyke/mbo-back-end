@@ -67,7 +67,7 @@ const api_transactions = {
         }
     },
     
-    transactions:async (req, res) => {
+    user_transactions:async (req, res) => {
         try {
             let response = await Transactions.findAll({
                 where:{user_id: Number(req.body.id)},

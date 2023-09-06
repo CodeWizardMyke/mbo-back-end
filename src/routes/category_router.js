@@ -9,4 +9,7 @@ router.post('/', api_category.post);
 router.put('/', api_category.put);
 router.delete('/', api_category.delete);
 
+router.get('/id', api_category.id_category);
+router.get('/user', api_category.user_category);
+
 module.exports = router;

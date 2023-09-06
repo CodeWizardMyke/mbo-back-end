@@ -52,7 +52,6 @@ const api_Linked_accounts = {
             try {
                 let response = await Linked_accounts.findOne({
                     where:{id: Number(req.body.id)},
-                    include:"category"
                 });
     
                 return res.status(200).json(response);
@@ -66,7 +65,6 @@ const api_Linked_accounts = {
             try {
                 let response = await Linked_accounts.findAll({
                     where:{user_id: Number(req.body.id)},
-                    include:'category'
                 });
     
                 return res.status(200).json(response);

@@ -61,7 +61,7 @@ const api_Settings = {
     
     user_settings:async (req, res) => {
         try {
-            let response = await Budgets.findAll({
+            let response = await Settings.findAll({
                 where:{user_id:Number(req.body.id)}
             });
 
