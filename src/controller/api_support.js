@@ -46,6 +46,31 @@ const api_Support_tickets = {
             return res.status(500).json({msg:"Original Error [DELETE]Support_tickets status-500 client-server error!"})
         }
     },
+
+    /* advance search */
+    id_support:async (req, res) => {
+        try {
+            let response = await Support_tickets.findOne({ where: { id: Number( req.body.id ) } });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [id_support-findOne]GET status-500 client-server error!"});
+        }
+    },
+    
+    user_support:async (req, res) => {
+        try {
+            let response = await Support_tickets.findAll({
+                where:{user_id:Number(req.body.id)}
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [user_support-findAll]GET status-500 client-server error!"});
+        }
+    },
 }
 
 module.exports = api_Support_tickets;

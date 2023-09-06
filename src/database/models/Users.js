@@ -19,7 +19,12 @@ module.exports = (sequelize, DataTypes) => {
 
     Users.associate = (models) => {
         Users.hasMany(models.Support_tickets, { foreignKey: 'user_id',as: 'support_tickets',});
-        Users.hasMany(models.Transactions, {foreignKey:'user_id', as :'transactions'})
+        Users.hasMany(models.Transactions, {foreignKey:'user_id', as :'transactions'});
+        Users.hasMany(models.Settings, {foreignKey:'user_id', as :'settings'});
+        Users.hasMany(models.Linked_accounts, {foreignKey:'user_id', as :'linked_accounts'});
+        Users.hasMany(models.Goals, {foreignKey:'user_id', as :'goals'});
+        Users.hasMany(models.Budgets, {foreignKey:'user_id', as :'budgets'});
+        Users.hasMany(models.Category, {foreignKey:'user_id', as :'category'});
     };
 
     return Users;

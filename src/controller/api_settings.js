@@ -45,6 +45,31 @@ const api_Settings = {
             console.log(error);
             return res.status(500).json({msg:"Original Error [DELETE]Settings status-500 client-server error!"})
         }
+    },   
+    
+    /* advance search */
+    id_settings:async (req, res) => {
+        try {
+            let response = await Settings.findOne({ where: { id: Number( req.body.id ) } });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [id_settings-findOne]GET status-500 client-server error!"});
+        }
+    },
+    
+    user_settings:async (req, res) => {
+        try {
+            let response = await Budgets.findAll({
+                where:{user_id:Number(req.body.id)}
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [user_settings-findAll]GET status-500 client-server error!"});
+        }
     },
 }
 

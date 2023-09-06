@@ -46,6 +46,31 @@ const api_goals = {
             return res.status(500).json({msg:"Original Error [DELETE]Goals status-500 client-server error!"})
         }
     },
+
+    /* advance search */
+    id_goals:async (req, res) => {
+        try {
+            let response = await Goals.findOne({ where: { id: Number( req.body.id ) } });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [id_goals-findOne]GET status-500 client-server error!"});
+        }
+    },
+    
+    user_goals:async (req, res) => {
+        try {
+            let response = await Goals.findAll({
+                where:{user_id:Number(req.body.id)}
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [user_goals-findAll]GET status-500 client-server error!"});
+        }
+    },
 }
 
 module.exports = api_goals;

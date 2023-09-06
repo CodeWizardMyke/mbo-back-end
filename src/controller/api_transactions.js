@@ -51,6 +51,35 @@ const api_transactions = {
             return res.status(500).json({msg:"Original Error [DELETE]Transactions status-500 client-server error!"})
         }
     },
+
+    /* advance search */
+    id_transactions:async (req, res) => {
+        try {
+            let response = await Transactions.findAll({
+                where:{id: Number(req.body.id)},
+                include:'category'
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [id_transactions.category-findOne]GET status-500 client-server error!"});
+        }
+    },
+    
+    transactions:async (req, res) => {
+        try {
+            let response = await Transactions.findAll({
+                where:{user_id: Number(req.body.id)},
+                include:'category'
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [user_transactions.category-findAll]GET status-500 client-server error!"});
+        }
+    },
 }
 
 module.exports = api_transactions;

@@ -25,5 +25,9 @@ module.exports = (sequelize, DataTypes) => {
         tableName:'goals'
     })
 
+    Goals.associate = (models) => {
+      Goals.belongsTo(models.Users, {foreignKey:'user_id', as:'user'})
+    }
+
     return Goals;
 }

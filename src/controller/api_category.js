@@ -46,6 +46,31 @@ const api_category = {
             return res.status(500).json({msg:"Original Error [DELETE]Category status-500 client-server error!"})
         }
     },
+
+    /* advance search */
+    id_category:async (req, res) => {
+        try {
+            let response = await Category.findOne({ where: { id: Number( req.body.id ) } });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [id_category-findOne]GET status-500 client-server error!"});
+        }
+    },
+    
+    user_category:async (req, res) => {
+        try {
+            let response = await Category.findAll({
+                where:{user_id:Number(req.body.id)}
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [user_category-findAll]GET status-500 client-server error!"});
+        }
+    },
 }
 
 module.exports = api_category;

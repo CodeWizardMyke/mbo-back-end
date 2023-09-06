@@ -46,6 +46,35 @@ const api_Linked_accounts = {
             return res.status(500).json({msg:"Original Error [DELETE]Linked_accounts status-500 client-server error!"})
         }
     },
+
+        /* advance search */
+        id_linked_accounts:async (req, res) => {
+            try {
+                let response = await Linked_accounts.findOne({
+                    where:{id: Number(req.body.id)},
+                    include:"category"
+                });
+    
+                return res.status(200).json(response);
+            } catch (error) {
+                console.log(error);
+                return res.status(500).json({msg:"Original Error [id_linkedaccounts-findOne]GET status-500 client-server error!"});
+            }
+        },
+        
+        user_linked_accounts:async (req, res) => {
+            try {
+                let response = await Linked_accounts.findAll({
+                    where:{user_id: Number(req.body.id)},
+                    include:'category'
+                });
+    
+                return res.status(200).json(response);
+            } catch (error) {
+                console.log(error);
+                return res.status(500).json({msg:"Original Error [linkedaccounts.user-findAll]GET status-500 client-server error!"});
+            }
+        },
 }
 
 module.exports = api_Linked_accounts;

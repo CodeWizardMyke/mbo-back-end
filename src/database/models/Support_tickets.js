@@ -18,10 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Support_tickets.associate = (models) => {
-        Support_tickets.belongsTo(models.Users, {
-            foreignKey: 'user_id',
-            as: 'user',
-        });
+        Support_tickets.belongsTo(models.Users, {foreignKey: 'user_id',as: 'user',});
     };
 
     return Support_tickets;

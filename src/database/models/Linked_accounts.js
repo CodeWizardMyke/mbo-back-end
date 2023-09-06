@@ -17,5 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         tableName:'linked_accounts'
     })
 
+    Linked_accounts.associate = (models) => {
+        Linked_accounts.belongsTo(models.Users, {foreignKey:'user_id', as:'user'})
+    }
+
     return Linked_accounts;
 }

@@ -46,6 +46,36 @@ const api_Budgets = {
             return res.status(500).json({msg:"Original Error [DELETE]Budgets status-500 client-server error!"})
         }
     },
+
+    id_budgets:async (req, res) => {
+        try {
+            let response = await Budgets.findOne({
+                where:{id: Number(req.body.id) },
+                include:'category'
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [id_budgets.category-findOne]GET status-500 client-server error!"});
+        }
+    },
+    
+    user_budgets:async (req, res) => {
+        try {
+            let response = await Budgets.findAll({
+                where:{user_id: Number(req.body.id) },
+                include:'category'
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [user_budgets.category-findAll]GET status-500 client-server error!"});
+        }
+    },
+    
+
 }
 
 module.exports = api_Budgets;
