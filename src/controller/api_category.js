@@ -1,51 +1,51 @@
-const { Support_tickets } = require('../database/models');
+const { Category } = require('../database/models');
 
-const api_Support_tickets = {
+const api_category = {
     get: async( req, res) => {
         try {
-            const response = await Support_tickets.findAll()
+            const response = await Category.findAll()
 
             return res.status(200).json(response);
         } catch (error) {
             console.log(error);
-            return res.status(500).json({msg:"Original Error [GET]Support_tickets status-500 client-server error!"})
+            return res.status(500).json({msg:"Original Error [GET]Category status-500 client-server error!"})
         }
     },
     post: async( req, res) => {
         try {
-            const response = await Support_tickets.create(req.body)
+            const response = await Category.create(req.body)
             return res.status(201).json({response});
         } catch (error) {
             console.log(error);
-            return res.status(500).json({msg:"Original Error [POST]Support_tickets status-500 client-server error!"})
+            return res.status(500).json({msg:"Original Error [POST]Category status-500 client-server error!"})
         }
     },
     put: async( req, res) => {
         try {
             const {id} = req.body
 
-            let response = await Support_tickets.findByPk(id)
+            let response = await Category.findByPk(id)
             delete req.body.id
             let updated = await response.update(req.body)
             
             return res.status(200).json(updated);
         } catch (error) {
             console.log(error);
-            return res.status(500).json({msg:"Original Error [PUT]Support_tickets status-500 client-server error!"})
+            return res.status(500).json({msg:"Original Error [PUT]Category status-500 client-server error!"})
         }
     },
     delete: async( req, res) => {
         try {
             const {id} = req.body
 
-            let response = await Support_tickets.destroy({where:{id:id}})
+            let response = await Category.destroy({where:{id:id}})
             
             return res.status(200).json(response);
         } catch (error) {
             console.log(error);
-            return res.status(500).json({msg:"Original Error [DELETE]Support_tickets status-500 client-server error!"})
+            return res.status(500).json({msg:"Original Error [DELETE]Category status-500 client-server error!"})
         }
     },
 }
 
-module.exports = api_Support_tickets;
+module.exports = api_category;

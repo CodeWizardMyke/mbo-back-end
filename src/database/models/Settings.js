@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             unique:true,
             allowNull:false,
           },
+          user_id:DataTypes.INTEGER,
           notification_preference:DataTypes.INTEGER,
           privacy_settings:DataTypes.INTEGER,
     },

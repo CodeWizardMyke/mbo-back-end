@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull:false
           },
           category_name:DataTypes.STRING,
+          user_id:DataTypes.INTEGER,
     },
     {
         timestamps:false,

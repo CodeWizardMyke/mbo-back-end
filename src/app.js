@@ -5,8 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const indexRouter = require('./routes/index');
-const api_users_router = require('./routes/users');
-const api_support_router = require('./routes/support');
+const api_users_router = require('./routes/users_router');
+const api_support_router = require('./routes/support_router');
+const api_transactions_router = require('./routes/transactions_router');
+const api_category_router = require('./routes/category_router');
+const api_goals_router = require('./routes/goals_router');
+const api_budgets_router = require('./routes/budgets_router');
+const api_linked_accounts_router = require('./routes/linked_accounts_router');
+const api_settings_router = require('./routes/settings_router');
 
 var app = express();
 
@@ -23,6 +29,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', api_users_router);
 app.use('/support', api_support_router);
+app.use('/transactions', api_transactions_router);
+app.use('/category', api_category_router);
+app.use('/goals', api_goals_router);
+app.use('/budgets', api_budgets_router);
+app.use('/linked.accounts', api_linked_accounts_router);
+app.use('/settings', api_settings_router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

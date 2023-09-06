@@ -1,51 +1,51 @@
-const { Support_tickets } = require('../database/models');
+const { Goals } = require('../database/models');
 
-const api_Support_tickets = {
+const api_goals = {
     get: async( req, res) => {
         try {
-            const response = await Support_tickets.findAll()
+            const response = await Goals.findAll()
 
             return res.status(200).json(response);
         } catch (error) {
             console.log(error);
-            return res.status(500).json({msg:"Original Error [GET]Support_tickets status-500 client-server error!"})
+            return res.status(500).json({msg:"Original Error [GET]Goals status-500 client-server error!"})
         }
     },
     post: async( req, res) => {
         try {
-            const response = await Support_tickets.create(req.body)
+            const response = await Goals.create(req.body)
             return res.status(201).json({response});
         } catch (error) {
             console.log(error);
-            return res.status(500).json({msg:"Original Error [POST]Support_tickets status-500 client-server error!"})
+            return res.status(500).json({msg:"Original Error [POST]Goals status-500 client-server error!"})
         }
     },
     put: async( req, res) => {
         try {
             const {id} = req.body
 
-            let response = await Support_tickets.findByPk(id)
+            let response = await Goals.findByPk(id)
             delete req.body.id
             let updated = await response.update(req.body)
             
             return res.status(200).json(updated);
         } catch (error) {
             console.log(error);
-            return res.status(500).json({msg:"Original Error [PUT]Support_tickets status-500 client-server error!"})
+            return res.status(500).json({msg:"Original Error [PUT]Goals status-500 client-server error!"})
         }
     },
     delete: async( req, res) => {
         try {
             const {id} = req.body
 
-            let response = await Support_tickets.destroy({where:{id:id}})
+            let response = await Goals.destroy({where:{id:id}})
             
             return res.status(200).json(response);
         } catch (error) {
             console.log(error);
-            return res.status(500).json({msg:"Original Error [DELETE]Support_tickets status-500 client-server error!"})
+            return res.status(500).json({msg:"Original Error [DELETE]Goals status-500 client-server error!"})
         }
     },
 }
 
-module.exports = api_Support_tickets;
+module.exports = api_goals;
