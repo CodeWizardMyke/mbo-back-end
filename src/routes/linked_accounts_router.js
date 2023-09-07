@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //import controller
-const linked_accounts = require('../controller/linked_accounts');
+const linked_accounts = require('../controller/api_linked_accounts');
 
 router.get('/', linked_accounts.get);
 router.post('/', linked_accounts.post);

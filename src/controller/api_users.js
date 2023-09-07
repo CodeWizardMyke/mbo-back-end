@@ -1,6 +1,8 @@
 const { validationResult } = require('express-validator');
 const { Users } = require('../database/models');
 
+const bcrypt = require('bcrypt')
+
 const api_users = {
     get: async( req, res) => {
         try {
@@ -19,7 +21,9 @@ const api_users = {
                 return res.status(400).json({errors:errors});
             };
 
+            req.body.password = bcrypt.hashSync(req.body.password, 10);
             const response = await Users.create(req.body);
+
             return res.status(201).json(response);
         } catch (error) {
             console.log(error);
@@ -33,6 +37,10 @@ const api_users = {
                 return res.status(400).json({errors:errors});
             };
             
+            if(req.body.password){
+                req.body.password = bcrypt.hashSync(req.body.password, 10)
+            }
+
             let response = await Users.findByPk(Number(req.body.id));
             delete req.body.id;
             let updated = await response.update(req.body);

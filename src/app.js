@@ -13,6 +13,7 @@ const api_goals_router = require('./routes/goals_router');
 const api_budgets_router = require('./routes/budgets_router');
 const api_linked_accounts_router = require('./routes/linked_accounts_router');
 const api_settings_router = require('./routes/settings_router');
+const authentication_router = require('./routes/authentication_router');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use('/goals', api_goals_router);
 app.use('/budgets', api_budgets_router);
 app.use('/linked.accounts', api_linked_accounts_router);
 app.use('/settings', api_settings_router);
+app.use('/user', authentication_router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
