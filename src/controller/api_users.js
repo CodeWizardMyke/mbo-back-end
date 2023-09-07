@@ -40,8 +40,9 @@ const api_users = {
             if(req.body.password){
                 req.body.password = bcrypt.hashSync(req.body.password, 10)
             }
+            const {id} = req.tokenDecoded
 
-            let response = await Users.findByPk(Number(req.body.id));
+            let response = await Users.findByPk(id);
             delete req.body.id;
             let updated = await response.update(req.body);
             
@@ -53,7 +54,9 @@ const api_users = {
     },
     delete: async( req, res) => {
         try {
-            let response = await Users.destroy({where:{id:Number(req.body.id)}});
+            const {id} = req.tokenDecoded
+
+            let response = await Users.destroy({where:{ id: id }});
             
             return res.status(200).json(response);
         } catch (error) {
@@ -63,10 +66,11 @@ const api_users = {
     },
 
     /* advence searchings by user */
-
     user: async (req, res) => {
         try {
-            let response = await Users.findByPk( Number(req.body.id) );
+            const {id} = req.tokenDecoded
+
+            let response = await Users.findByPk( id );
             
             return res.status(200).json(response);
         } catch (error) {
@@ -76,8 +80,10 @@ const api_users = {
     },
     user_settings:async (req, res) => {
         try {
+            const {id} = req.tokenDecoded
+
             let response = await Users.findOne({
-                where:{id:Number(req.body.id)},
+                where:{id: id },
                 include:'settings'
             });
 
@@ -89,8 +95,10 @@ const api_users = {
     },
     user_category:async (req, res) => {
         try {
+            const {id} = req.tokenDecoded
+
             let response = await Users.findOne({
-                where:{id: Number(req.body.id) },
+                where:{id: id },
                 include:'category'
             });
 
@@ -102,8 +110,10 @@ const api_users = {
     },
     user_budgets:async (req, res) => {
         try {
+            const {id} = req.tokenDecoded
+
             let response = await Users.findOne({
-                where:{id: Number(req.body.id) },
+                where:{id: id },
                 include:'budgets'
             });
 
@@ -115,8 +125,10 @@ const api_users = {
     },
     user_goals:async (req, res) => {
         try {
+            const {id} = req.tokenDecoded
+
             let response = await Users.findOne({
-                where:{id: Number(req.body.id) },
+                where:{id: id },
                 include:'goals'
             });
 
@@ -128,8 +140,10 @@ const api_users = {
     },
     user_transactions:async (req, res) => {
         try {
+            const {id} = req.tokenDecoded
+
             let response = await Users.findOne({
-                where:{id: Number(req.body.id) },
+                where:{id: id },
                 include:'transactions'
             });
 
@@ -141,8 +155,10 @@ const api_users = {
     },
     user_linked_accounts:async (req, res) => {
         try {
+            const {id} = req.tokenDecoded
+
             let response = await Users.findOne({
-                where:{id: Number(req.body.id) },
+                where:{id: id },
                 include:'linked_accounts'
             });
 
@@ -154,8 +170,10 @@ const api_users = {
     },
     user_support:async (req, res) => {
         try {
+            const {id} = req.tokenDecoded
+
             let response = await Users.findOne({
-                where:{id: Number(req.body.id) },
+                where:{id: id },
                 include:'support_tickets'
             });
 
