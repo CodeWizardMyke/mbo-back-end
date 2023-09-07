@@ -3,11 +3,12 @@ const router = express.Router();
 
 //import controller
 const api_users = require('../controller/api_users');
+const check_users = require('../functions/express-validator/check_users');
 
 /* routes by crud model */
 router.get('/', api_users.get);
-router.post('/', api_users.post);
-router.put('/', api_users.put);
+router.post('/', check_users.post, api_users.post);
+router.put('/', check_users.put, api_users.put);
 router.delete('/', api_users.delete);
 
 /* routes by searching models for user */

@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const { Users } = require('../database/models');
 
 const api_users = {
@@ -13,9 +14,13 @@ const api_users = {
     },
     post: async( req, res) => {
         try {
-            const response = await Users.create(req.body);
+            const {errors} = validationResult(req);
+            if(errors.length){
+                return res.status(400).json({errors:errors});
+            };
 
-            return res.status(201).json({response});
+            const response = await Users.create(req.body);
+            return res.status(201).json(response);
         } catch (error) {
             console.log(error);
             return res.status(500).json({msg:"Original Error [POST]Users status-500 client-server error!"});
@@ -23,6 +28,11 @@ const api_users = {
     },
     put: async( req, res) => {
         try {
+            const {errors} = validationResult(req);
+            if(errors.length){
+                return res.status(400).json({errors:errors});
+            };
+            
             let response = await Users.findByPk(Number(req.body.id));
             delete req.body.id;
             let updated = await response.update(req.body);
