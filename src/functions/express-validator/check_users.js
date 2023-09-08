@@ -5,7 +5,7 @@ const {Users} = require('../../database/models');
 const check_users = {
     post:[
         check('email')
-            .notEmpty().withMessage('Preencha o campo').trim().normalizeEmail().bail()
+            .notEmpty().withMessage('Preencha o campo').trim().bail()
             .isEmail().withMessage('Insira um email válido').bail()
             .custom( async (value, {req}) => {
                 const response = await Users.findOne({where:{email:req.body.email}})
