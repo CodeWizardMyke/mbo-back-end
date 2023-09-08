@@ -3,7 +3,8 @@ const { Linked_accounts } = require('../database/models');
 const api_Linked_accounts = {
     get: async( req, res) => {
         try {
-            const response = await Linked_accounts.findAll()
+            const user_id = req.tokenDecoded.id
+            const response = await Linked_accounts.findAll({where:{user_id:user_id}})
 
             return res.status(200).json(response);
         } catch (error) {
@@ -13,7 +14,9 @@ const api_Linked_accounts = {
     },
     post: async( req, res) => {
         try {
+            req.body.user_id = req.tokenDecoded.id
             const response = await Linked_accounts.create(req.body)
+            
             return res.status(201).json({response});
         } catch (error) {
             console.log(error);
@@ -23,8 +26,9 @@ const api_Linked_accounts = {
     put: async( req, res) => {
         try {
             const {id} = req.body
+            const user_id = req.tokenDecoded.id
 
-            let response = await Linked_accounts.findByPk(id)
+            let response = await Linked_accounts.findOne({where:{id:id, user_id:user_id}})
             delete req.body.id
             let updated = await response.update(req.body)
             
@@ -37,8 +41,9 @@ const api_Linked_accounts = {
     delete: async( req, res) => {
         try {
             const {id} = req.body
+            const user_id = req.tokenDecoded.id
 
-            let response = await Linked_accounts.destroy({where:{id:id}})
+            let response = await Linked_accounts.destroy({where:{id:id, user_id:user_id}})
             
             return res.status(200).json(response);
         } catch (error) {
@@ -50,27 +55,15 @@ const api_Linked_accounts = {
         /* advance search */
         id_linked_accounts:async (req, res) => {
             try {
+                const user_id = req.tokenDecoded.id
                 let response = await Linked_accounts.findOne({
-                    where:{id: Number(req.body.id)},
+                    where:{id: Number(req.body.id), user_id:user_id},
                 });
     
                 return res.status(200).json(response);
             } catch (error) {
                 console.log(error);
                 return res.status(500).json({msg:"Original Error [id_linkedaccounts-findOne]GET status-500 client-server error!"});
-            }
-        },
-        
-        user_linked_accounts:async (req, res) => {
-            try {
-                let response = await Linked_accounts.findAll({
-                    where:{user_id: Number(req.body.id)},
-                });
-    
-                return res.status(200).json(response);
-            } catch (error) {
-                console.log(error);
-                return res.status(500).json({msg:"Original Error [linkedaccounts.user-findAll]GET status-500 client-server error!"});
             }
         },
 }

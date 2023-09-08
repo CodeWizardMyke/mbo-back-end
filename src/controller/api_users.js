@@ -6,7 +6,8 @@ const bcrypt = require('bcrypt')
 const api_users = {
     get: async( req, res) => {
         try {
-            const response = await Users.findAll();
+            const user_id = req.tokenDecoded.id
+            const response = await Users.findByPk( user_id );
 
             return res.status(200).json(response);
         } catch (error) {

@@ -3,7 +3,8 @@ const { Goals } = require('../database/models');
 const api_goals = {
     get: async( req, res) => {
         try {
-            const response = await Goals.findAll()
+            const user_id = req.tokenDecoded.id
+            const response = await Goals.findAll({where:{user_id:user_id}})
 
             return res.status(200).json(response);
         } catch (error) {
@@ -13,7 +14,9 @@ const api_goals = {
     },
     post: async( req, res) => {
         try {
+            req.body.user_id = req.tokenDecoded.id
             const response = await Goals.create(req.body)
+
             return res.status(201).json({response});
         } catch (error) {
             console.log(error);
@@ -23,10 +26,12 @@ const api_goals = {
     put: async( req, res) => {
         try {
             const {id} = req.body
+            const user_id = req.tokenDecoded.id
 
-            let response = await Goals.findByPk(id)
+            let response = await Goals.findOne({where:{id:id, user_id:user_id}})
             delete req.body.id
             let updated = await response.update(req.body)
+            delete updated.user_id
             
             return res.status(200).json(updated);
         } catch (error) {
@@ -37,8 +42,9 @@ const api_goals = {
     delete: async( req, res) => {
         try {
             const {id} = req.body
+            const user_id = req.tokenDecoded.id
 
-            let response = await Goals.destroy({where:{id:id}})
+            let response = await Goals.destroy({where:{id:id, user_id:user_id}})
             
             return res.status(200).json(response);
         } catch (error) {
@@ -50,25 +56,13 @@ const api_goals = {
     /* advance search */
     id_goals:async (req, res) => {
         try {
-            let response = await Goals.findOne({ where: { id: Number( req.body.id ) } });
+            const user_id = req.tokenDecoded.id
+            let response = await Goals.findOne({ where: { id: Number( req.body.id ), user_id:user_id } });
 
             return res.status(200).json(response);
         } catch (error) {
             console.log(error);
             return res.status(500).json({msg:"Original Error [id_goals-findOne]GET status-500 client-server error!"});
-        }
-    },
-    
-    user_goals:async (req, res) => {
-        try {
-            let response = await Goals.findAll({
-                where:{user_id:Number(req.body.id)}
-            });
-
-            return res.status(200).json(response);
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json({msg:"Original Error [user_goals-findAll]GET status-500 client-server error!"});
         }
     },
 }

@@ -3,13 +3,13 @@ const router = express.Router();
 
 //import controller
 const api_support = require('../controller/api_support');
+const user_auth = require('../middlewares/user_auth')
 
-router.get('/', api_support.get);
-router.post('/', api_support.post);
-router.put('/', api_support.put);
-router.delete('/', api_support.delete);
+router.get('/', user_auth, api_support.get);
+router.post('/', user_auth, api_support.post);
+router.put('/', user_auth, api_support.put);
+router.delete('/', user_auth, api_support.delete);
 
-router.get('/id', api_support.id_support);
-router.get('/user', api_support.user_support);
+router.get('/id', user_auth, api_support.id_support);
 
 module.exports = router;
