@@ -4,7 +4,7 @@ const {Users} = require('../database/models');
 const {validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken');
 const path = require('path')
-const ambient = require(path.resolve("ambient.js"))
+const ambient = require(path.resolve(".ambient.js"))
 
 const authentication = {
     login: async (req, res) =>{

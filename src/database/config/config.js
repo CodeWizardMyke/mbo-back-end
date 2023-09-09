@@ -1,5 +1,5 @@
 const path = require('path')
-const ambient = require(path.resolve("ambient.js"))
+const ambient = require(path.resolve(".ambient.js"))
 
 module.exports = {
   "username": ambient.DBNAME,
