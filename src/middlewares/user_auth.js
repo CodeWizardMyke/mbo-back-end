@@ -12,7 +12,7 @@ const user_auth = (req, res, next) => {
     }
 
     try {
-        jwt.verify( token, process.env.SECRET, (error, decoded) => {
+        jwt.verify( token, 'CGbtOxEQPDWusrHy035@', (error, decoded) => {
             if(error) {
                 console.log(error)
                 return res.status(401).json({error:{msg:'Houve um error na solicitação de acesso para esta página!'}})

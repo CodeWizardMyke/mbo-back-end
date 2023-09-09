@@ -1,10 +1,11 @@
-require('dotenv').config();
+const path = require('path')
+const ambient = require(path.resolve("ambient.js"))
 
 module.exports = {
-  "username": process.env.DBUSER,
-  "password": process.env.DBPASS,
-  "database": process.env.DBNAME,
-  "host": process.env.DBHOST,
-  "port":process.env.DBPORT,
-  "dialect": process.env.DBDIALECT,
+  "username": ambient.DBNAME,
+  "password": ambient.DBPASS,
+  "database": ambient.DBNAME,
+  "host": ambient.DBHOST,
+  "port": ambient.DBPORT,
+  "dialect": ambient.DBDIALECT,
 }
