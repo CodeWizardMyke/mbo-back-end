@@ -9,7 +9,6 @@ const ambient = require(path.resolve(".ambient.js"))
 const authentication = {
     login: async (req, res) =>{
         try {
-            console.log(ambient)
             const {errors} = validationResult(req);
             if(errors.length){
                 return res.status(400).json(errors)

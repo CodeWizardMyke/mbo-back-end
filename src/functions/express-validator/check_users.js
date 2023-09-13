@@ -39,7 +39,21 @@ const check_users = {
 
         check('fullname').optional().bail()
             .notEmpty().withMessage('Preencha o campo').trim()
-    ]
+    ],
+    singin:[
+        check('email')
+            .notEmpty().withMessage('Preencha o campo').trim().bail()
+            .isEmail().withMessage('Insira um email válido').bail()
+            .custom( async (value, {req}) => {
+                const response = await Users.findOne({where:{email:req.body.email}})
+                if(!response){
+                    throw new Error('Usuario não encontrado')
+                }
+                return true
+           }),
+        check('password')
+            .notEmpty().withMessage('Preencha o campo').trim().bail()
+    ],
 };
 
 module.exports = check_users;
