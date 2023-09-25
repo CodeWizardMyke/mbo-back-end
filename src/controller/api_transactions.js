@@ -1,4 +1,5 @@
-const { Transactions } = require('../database/models');
+const { validationResult } = require('express-validator');
+const { Transactions, Category } = require('../database/models');
 
 const convertDateToAmericanFormat = require('../functions/convertDateToAmericanFormat')
 
@@ -7,7 +8,7 @@ const api_transactions = {
         try {
             const {id} = req.tokenDecoded
 
-            const response = await Transactions.findAll({where:{user_id:id}})
+            const response = await Transactions.findAll({ where:{user_id:id}, include:'category' })
 
             return res.status(200).json(response);
         } catch (error) {
@@ -16,8 +17,19 @@ const api_transactions = {
         }
     },
     post: async( req, res) => {
+        const {errors} = validationResult(req);
+        if(errors.length){
+            return res.status(400).json(errors);
+        };
+
         try {
             const {id} = req.tokenDecoded
+            const {new_category} = req.body
+
+            if(new_category){
+                const {id} = await Category.create(req.body.new_category);
+                req.body.category_id = id;
+            }
 
             req.body.date = convertDateToAmericanFormat(req.body.date)
             req.body.user_id = id

@@ -42,6 +42,7 @@ const api_category = {
         try {
             const {id} = req.body
             const user_id = req.tokenDecoded.id
+
             let response = await Category.destroy({where:{id:id, user_id:user_id}})
             
             return res.status(200).json(response);

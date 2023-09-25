@@ -19,7 +19,7 @@ const api_users = {
         try {
             const {errors} = validationResult(req);
             if(errors.length){
-                return res.status(400).json({errors:errors});
+                return res.status(400).json(errors);
             };
 
             req.body.password = bcrypt.hashSync(req.body.password, 10);
@@ -35,7 +35,7 @@ const api_users = {
         try {
             const {errors} = validationResult(req);
             if(errors.length){
-                return res.status(400).json({errors:errors});
+                return res.status(400).json(errors);
             };
             
             if(req.body.password){
