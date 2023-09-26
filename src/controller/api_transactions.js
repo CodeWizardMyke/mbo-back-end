@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const { Transactions, Category } = require('../database/models');
+const { Transactions } = require('../database/models');
 
 const convertDateToAmericanFormat = require('../functions/convertDateToAmericanFormat')
 
@@ -17,22 +17,13 @@ const api_transactions = {
         }
     },
     post: async( req, res) => {
-        const {errors} = validationResult(req);
-        if(errors.length){
-            return res.status(400).json(errors);
-        };
+        const { errors } = validationResult(req);
+        if( errors.length ){return res.status(400).json(errors); };
 
         try {
-            const {id} = req.tokenDecoded
-            const {new_category} = req.body
-
-            if(new_category){
-                const {id} = await Category.create(req.body.new_category);
-                req.body.category_id = id;
-            }
-
             req.body.date = convertDateToAmericanFormat(req.body.date)
-            req.body.user_id = id
+            req.body.user_id = req.tokenDecoded.id
+
             const response = await Transactions.create(req.body)
             
             return res.status(201).json({response});
@@ -74,9 +65,42 @@ const api_transactions = {
     id_transactions:async (req, res) => {
         try {
             const user_id = req.tokenDecoded.id
+            const {id} = req.params
+
+            let response = await Transactions.findOne({
+                where:{id: id, user_id:user_id},
+                include:'category'
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [id_transactions.category-findOne]GET status-500 client-server error!"});
+        }
+    },
+    type_transactions:async (req, res) => {
+        try {
+            const user_id = req.tokenDecoded.id
+            const {id} = req.params
 
             let response = await Transactions.findAll({
-                where:{id: Number(req.body.id), user_id:user_id},
+                where:{type: id, user_id:user_id},
+                include:'category'
+            });
+
+            return res.status(200).json(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({msg:"Original Error [id_transactions.category-findOne]GET status-500 client-server error!"});
+        }
+    },
+    category_id_transactions:async (req, res) => {
+        try {
+            const user_id = req.tokenDecoded.id
+            const {id} = req.params
+
+            let response = await Transactions.findAll({
+                where:{category_id: id, user_id:user_id},
                 include:'category'
             });
 
