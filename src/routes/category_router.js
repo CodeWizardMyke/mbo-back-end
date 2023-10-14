@@ -7,9 +7,9 @@ const user_auth = require('../middlewares/user_auth');
 
 router.get('/', user_auth, api_category.get);
 router.post('/', user_auth, api_category.post);
-router.put('/', user_auth, api_category.put);
-router.delete('/', user_auth, api_category.delete);
 
-router.get('/id', user_auth, api_category.id_category);
+router.put('/:id', user_auth, api_category.put);
+router.delete('/:id', user_auth, api_category.delete);
+router.get('/:id', user_auth, api_category.id_category);
 
 module.exports = router;

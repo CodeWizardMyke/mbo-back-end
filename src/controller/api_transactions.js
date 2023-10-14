@@ -34,11 +34,10 @@ const api_transactions = {
     },
     put: async( req, res) => {
         try {
-            const {id} = req.body
+            const {id} = req.params
             const user_id = req.tokenDecoded.id
 
             let response = await Transactions.findOne({where:{id:id, user_id: user_id}})
-            delete req.body.id
             let updated = await response.update(req.body)
             
             return res.status(200).json(updated);
@@ -49,7 +48,7 @@ const api_transactions = {
     },
     delete: async( req, res) => {
         try {
-            const {id} = req.body
+            const {id} = req.params
             const user_id = req.tokenDecoded.id
 
             const response = await Transactions.destroy({where:{ id:id, user_id: user_id }})

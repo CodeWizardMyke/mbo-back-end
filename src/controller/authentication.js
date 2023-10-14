@@ -13,16 +13,12 @@ const authentication = {
             if(errors.length){
                 return res.status(400).json(errors)
             }
-            const userByEmail = await Users.findOne({where:{email:req.body.email}});
+            const userAuth = await Users.findOne({where:{email:req.body.email}});
 
-            const pwMatch = await bcrypt.compare( String(req.body.password) , userByEmail.password)
+            const token = jwt.sign({id:userAuth.id}, ambient.SECRET, ) //{expiresIn:'10'})
+            delete userAuth.password
 
-            if(!pwMatch){return res.status(400).json({errors:{password:'Senha ou usuário inválido!'}})}
-
-            const token = jwt.sign({id:userByEmail.id}, ambient.SECRET, ) //{expiresIn:'10'})
-            delete userByEmail.password
-
-            return res.json({token, user:userByEmail})
+            return res.json({token, user:userAuth})
         } catch (error) {
             console.log(error);
             return res.status(500).json(error)

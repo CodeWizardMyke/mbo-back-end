@@ -25,7 +25,7 @@ const api_category = {
     },
     put: async( req, res) => {
         try {
-            const {id} = req.body
+            const {id} = req.params
             const user_id = req.tokenDecoded.id
 
             let response = await Category.findOne({where:{id:id, user_id:user_id}})
@@ -40,15 +40,16 @@ const api_category = {
     },
     delete: async( req, res) => {
         try {
-            const {id} = req.body
+            const {id} = req.params
             const user_id = req.tokenDecoded.id
 
             let response = await Category.destroy({where:{id:id, user_id:user_id}})
             
             return res.status(200).json(response);
         } catch (error) {
-            console.log(error);
-            return res.status(500).json({msg:"Original Error [DELETE]Category status-500 client-server error!"})
+            const {index} = error
+            console.log(error)
+            return res.status(500).json({index})
         }
     },
 
@@ -56,7 +57,9 @@ const api_category = {
     id_category:async (req, res) => {
         try {
             const user_id = req.tokenDecoded.id
-            let response = await Category.findOne({ where: { id: Number( req.body.id ), user_id:user_id } });
+            const {id} = req.params
+            
+            let response = await Category.findOne({ where: { id: id, user_id:user_id } });
 
             return res.status(200).json(response);
         } catch (error) {

@@ -1,6 +1,9 @@
 const { check } = require('express-validator');
 /* User database */
 const {Users} = require('../../database/models');
+const bcrypt = require('bcrypt');
+
+let userSearch ={}
 
 const check_users = {
     post:[
@@ -46,6 +49,7 @@ const check_users = {
             .isEmail().withMessage('Insira um email válido').bail()
             .custom( async (value, {req}) => {
                 const response = await Users.findOne({where:{email:req.body.email}})
+                userSearch = response
                 if(!response){
                     throw new Error('Usuario não encontrado')
                 }
@@ -53,7 +57,13 @@ const check_users = {
            }),
         check('password')
             .notEmpty().withMessage('Preencha o campo').trim().bail()
-    ],
+            .custom( async (value, {req}) => {
+                const pwMatch = await bcrypt.compare( String(req.body.password) , userSearch.password)
+
+                if(!pwMatch){ throw new Error('Usuário ou senha incorretas!')}
+                return true
+            })
+        ]
 };
 
 module.exports = check_users;

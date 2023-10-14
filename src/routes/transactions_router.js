@@ -13,8 +13,8 @@ const transactionCreateCategory = require('../middlewares/transaction.category.c
 
 router.get('/', user_auth, api_Transactions.get);
 router.post('/', user_auth, transactionCreateCategory, check_transaction, api_Transactions.post);
-router.put('/', user_auth, api_Transactions.put);
-router.delete('/', user_auth, api_Transactions.delete);
+router.put('/:id', user_auth, api_Transactions.put);
+router.delete('/:id', user_auth, api_Transactions.delete);
 
 //advance search
 router.get('/:id', user_auth, api_Transactions.id_transactions);
