@@ -21,7 +21,6 @@ function calculate_balance(data){
                 card += Number(element.amount)
                 break;
         }
-        console.log(element)
     });
 
     let object_balance = {}
@@ -29,11 +28,11 @@ function calculate_balance(data){
     object_balance.expense = (card + expense);
     object_balance.revenue = (revenue + gift)
 
-    
     if( object_balance.revenue >= object_balance.expense){
-        object_balance.balance = object_balance.revenue - object_balance.expense
+
+        object_balance.balance =  + (object_balance.revenue - object_balance.expense)
     }else{
-        object_balance.balance = object_balance.expense - object_balance.revenue
+        object_balance.balance =  - (object_balance.expense - object_balance.revenue)
     }
 
     return object_balance

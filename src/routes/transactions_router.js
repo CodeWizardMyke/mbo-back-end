@@ -18,7 +18,6 @@ router.delete('/:id', user_auth, api_Transactions.delete);
 
 //advance search
 router.get('/:id', user_auth, api_Transactions.id_transactions);
-router.get('/type', user_auth, api_Transactions.type_transactions)
-router.get('/category/:id', user_auth, api_Transactions.category_id_transactions)
+router.get('/type/:key', user_auth, api_Transactions.type_transactions)
 
 module.exports = router;

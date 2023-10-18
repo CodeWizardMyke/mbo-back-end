@@ -78,23 +78,18 @@ const api_transactions = {
         }
     },
     type_transactions:async (req, res) => {
+        const user_id = req.tokenDecoded.id
+        const {key} = req.params
 
-    },
-    category_id_transactions:async (req, res) => {
-        try {
-            const user_id = req.tokenDecoded.id
-            const {id} = req.params
+        const response = await Transactions.findAll({
+            where:{
+                user_id: user_id,
+                type:key
+            },
+            include:'category'
+        })
 
-            let response = await Transactions.findAll({
-                where:{category_id: id, user_id:user_id},
-                include:'category'
-            });
-
-            return res.status(200).json(response);
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json({msg:"Original Error [id_transactions.category-findOne]GET status-500 client-server error!"});
-        }
+        return res.status(200).json(response)
     },
 }
 
