@@ -23,9 +23,9 @@ const api_users = {
             };
 
             req.body.password = bcrypt.hashSync(req.body.password, 10);
-            const response = await Users.create(req.body);
+            await Users.create(req.body);
 
-            return res.status(201).json(response);
+            return res.status(201).json({msg:"usuario criado com sucesso!"});
         } catch (error) {
             console.log(error);
             return res.status(500).json({msg:"Original Error [POST]Users status-500 client-server error!"});

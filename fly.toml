@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for mbo-backend-app on 2023-09-07T23:07:04-03:00
+# fly.toml app configuration file generated for mbo-back-end on 2023-12-10T13:58:30-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "mbo-backend-app"
+app = "mbo-back-end"
 primary_region = "gru"
 
 [build]
@@ -15,3 +15,8 @@ primary_region = "gru"
   auto_start_machines = true
   min_machines_running = 0
   processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 2
+  memory_mb = 2048
