@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const {Users} = require('../database/models');
 
 const {validationResult} = require('express-validator')
@@ -13,12 +12,12 @@ const authentication = {
             if(errors.length){
                 return res.status(400).json(errors)
             }
-            const userAuth = await Users.findOne({where:{email:req.body.email}});
+            let user = await Users.findOne({where:{email:req.body.email}});
 
-            const token = jwt.sign({id:userAuth.id}, ambient.SECRET, ) //{expiresIn:'10'})
-            delete userAuth.password
+            const token = jwt.sign( {id:user.id} , 'SECRET');
+            const data = { fullname:user.fullname, email:user.email}
 
-            return res.json({token, user:userAuth})
+            return res.json({token, user:data})
         } catch (error) {
             console.log(error);
             return res.status(500).json(error)
