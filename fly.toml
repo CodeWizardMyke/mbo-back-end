@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for mbo-back-end on 2023-12-10T13:58:30-03:00
+# fly.toml app configuration file generated for mbo-back-end on 2023-12-11T08:42:06-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -18,5 +18,5 @@ primary_region = "gru"
 
 [[vm]]
   cpu_kind = "shared"
-  cpus = 2
-  memory_mb = 2048
+  cpus = 1
+  memory_mb = 1024

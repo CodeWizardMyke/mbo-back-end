@@ -2,7 +2,7 @@ const path = require('path')
 const ambient = require(path.resolve(".ambient.js"))
 
 module.exports = {
-  "username": ambient.DBNAME,
+  "username": ambient.DBUSER,
   "password": ambient.DBPASS,
   "database": ambient.DBNAME,
   "host": ambient.DBHOST,
