@@ -7,9 +7,11 @@ const api_users = {
     get: async( req, res) => {
         try {
             const user_id = req.tokenDecoded.id
-            const response = await Users.findByPk( user_id );
+            let userData = await Users.findByPk( user_id );
+            userData.dataValues.id = undefined
+            userData._previousDataValues.id = undefined
 
-            return res.status(200).json(response);
+            return res.status(200).json('userData');
         } catch (error) {
             console.log(error);
             return res.status(500).json({msg:"Original Error [GET]Users status-500 client-server error!"});
@@ -23,6 +25,8 @@ const api_users = {
             };
 
             req.body.password = bcrypt.hashSync(req.body.password, 10);
+            req.body.id = undefined
+
             await Users.create(req.body);
 
             return res.status(201).json({msg:"usuario criado com sucesso!"});
@@ -71,9 +75,11 @@ const api_users = {
         try {
             const {id} = req.tokenDecoded
 
-            let response = await Users.findByPk( id );
+            let userData = await Users.findByPk( id );
+            userData.dataValues.id = undefined
+            userData._previousDataValues.id = undefined
             
-            return res.status(200).json(response);
+            return res.status(200).json(userData);
         } catch (error) {
             console.log(error);
             return res.status(500).json({msg:"Original Error [users-findByPk]GET status-500 client-server error!"});
