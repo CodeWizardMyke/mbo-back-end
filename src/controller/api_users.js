@@ -7,11 +7,13 @@ const api_users = {
     get: async( req, res) => {
         try {
             const user_id = req.tokenDecoded.id
-            let userData = await Users.findByPk( user_id );
-            userData.dataValues.id = undefined
-            userData._previousDataValues.id = undefined
+            let userSearched = await Users.findByPk( user_id );
 
-            return res.status(200).json('userData');
+            let dataJson = JSON.stringify(userSearched)
+            let userData = JSON.parse(dataJson)
+            delete userData.id 
+
+            return res.status(200).json(userData);
         } catch (error) {
             console.log(error);
             return res.status(500).json({msg:"Original Error [GET]Users status-500 client-server error!"});
@@ -47,8 +49,10 @@ const api_users = {
             }
             const {id} = req.tokenDecoded
 
+            req.body.id ?  delete req.body.id : '';
+
             let response = await Users.findByPk(id);
-            delete req.body.id;
+            
             let updated = await response.update(req.body);
             
             return res.status(200).json(updated);
