@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const { Users } = require('../database/models');
+const { Users, Transactions, Category } = require('../database/models');
 
 const bcrypt = require('bcrypt')
 
@@ -64,6 +64,9 @@ const api_users = {
     delete: async( req, res) => {
         try {
             const {id} = req.tokenDecoded
+
+            await Transactions.destroy({ where :{user_id : id}}, {truncate:true})
+            await Category.destroy({ where :{user_id : id}}, {truncate:true})
 
             let response = await Users.destroy({where:{ id: id }});
             
